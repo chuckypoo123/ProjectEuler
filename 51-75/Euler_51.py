@@ -19,8 +19,9 @@ def num_as_list(num: int) -> list:
 
 def main():
 
-    FAMILY_LEN = 8
+    FAMILY_LEN = 8 # We want a family of 8 primes 
 
+    # Start by finding the primes 
     primes = [True for x in range(10)]
     primes[0] = False
     primes[1] = False
@@ -30,26 +31,25 @@ def main():
                 for j in range(i*2, len(primes), i):
                     primes[j] = False
 
+    # Look for this family of 8 in each different order
     for order in range(2, 8):
 
-        # print(primes)
+        # Extend primes to next order of magnitude
         primes.extend([True for x in range(9*len(primes))])
 
+        # Find all the primes in the new order
+        # This is necessary because once we have a prime, cycling through other primes will lead to looking at bigger numbers
         for i in range(len(primes)):
             if primes[i]:
                 for j in range(i*2, len(primes), i):
                     primes[j] = False
-
-        # print(len(primes))
 
         for i in range(len(primes)//10, len(primes)):
 
             if not primes[i]:
                 continue
 
-            # print(i)
             numlist = num_as_list(i)
-            # print(numlist)
             for j in range(len(numlist)):
 
                 if not len(numlist[j]):
